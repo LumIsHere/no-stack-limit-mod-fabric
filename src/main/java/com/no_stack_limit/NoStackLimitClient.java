@@ -18,11 +18,20 @@ public class NoStackLimitClient implements ClientModInitializer {
                 "key.no_stack_limit.show_exact_count",
                 InputConstants.KEY_LALT,
                 category));
+
         ItemTooltipCallback.EVENT.register((stack, context, type, lines) ->
                 TooltipHelper.appendExactCount(lines, stack));
     }
 
     public static boolean shouldShowExactCount() {
-        return showExactCountKey != null && showExactCountKey.isDown();
+        if (showExactCountKey == null) {
+            return false;
+        }
+
+        InputConstants.Key boundKey = KeyMappingHelper.getBoundKeyOf(showExactCountKey);
+        return showExactCountKey.isDown()
+                || (boundKey.getType() == InputConstants.Type.KEYBOARD
+                && boundKey.getValue() >= 0
+                && InputConstants.isKeyDown(boundKey.getValue()));
     }
 }
