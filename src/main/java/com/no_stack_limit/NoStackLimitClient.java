@@ -2,11 +2,14 @@ package com.no_stack_limit;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.minecraft.client.Minecraft;
 
 public class NoStackLimitClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
+        ItemTooltipCallback.EVENT.register((stack, tooltipContext, tooltipType, lines) ->
+                TooltipHelper.appendExactCount(lines, stack));
     }
 
     public static boolean shouldShowExactCount() {
@@ -15,7 +18,6 @@ public class NoStackLimitClient implements ClientModInitializer {
             return false;
         }
 
-        return InputConstants.isKeyDown(client.getWindow(), InputConstants.KEY_LALT)
-                || InputConstants.isKeyDown(client.getWindow(), InputConstants.KEY_RALT);
+        return InputConstants.isKeyDown(client.getWindow(), InputConstants.KEY_LALT);
     }
 }
