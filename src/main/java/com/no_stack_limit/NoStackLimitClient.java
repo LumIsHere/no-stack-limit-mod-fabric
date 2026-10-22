@@ -8,7 +8,7 @@ import net.minecraft.client.Minecraft;
 public class NoStackLimitClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-        ItemTooltipCallback.EVENT.register((stack, context, type, lines) ->
+        ItemTooltipCallback.EVENT.register((stack, tooltipContext, tooltipType, lines) ->
                 TooltipHelper.appendExactCount(lines, stack));
     }
 
@@ -18,7 +18,6 @@ public class NoStackLimitClient implements ClientModInitializer {
             return false;
         }
 
-        return InputConstants.isKeyDown(InputConstants.KEY_LALT)
-                || InputConstants.isKeyDown(InputConstants.KEY_RALT);
+        return InputConstants.isKeyDown(client.getWindow(), InputConstants.KEY_LALT);
     }
 }
