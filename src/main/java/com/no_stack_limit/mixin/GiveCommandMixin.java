@@ -11,6 +11,7 @@ import net.minecraft.server.commands.GiveCommand;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Prediction;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
@@ -44,7 +45,7 @@ public abstract class GiveCommandMixin {
                 ItemStack givenStack = noStackLimit$createItemStack(item, stackAmount);
                 boolean inserted = player.getInventory().add(givenStack);
                 if (!inserted || !givenStack.isEmpty()) {
-                    ItemEntity itemEntity = player.drop(givenStack, false);
+                    ItemEntity itemEntity = player.drop(givenStack, false, Prediction.SERVER_ONLY);
                     if (itemEntity != null) {
                         itemEntity.setNoPickUpDelay();
                         itemEntity.setTarget(player.getUUID());
@@ -52,7 +53,7 @@ public abstract class GiveCommandMixin {
                     continue;
                 }
 
-                ItemEntity itemEntity = player.drop(previewStack, false);
+                ItemEntity itemEntity = player.drop(previewStack, false, Prediction.SERVER_ONLY);
                 if (itemEntity != null) {
                     itemEntity.makeFakeItem();
                 }

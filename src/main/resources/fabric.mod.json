@@ -22,9 +22,9 @@
 		"no_stack_limit.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.18.4",
-		"minecraft": "26.1",
-		"java": ">=21",
+		"fabricloader": ">=0.19.5",
+		"minecraft": "26.3",
+		"java": ">=25",
 		"fabric-api": "*"
 	}
 }
